@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - test</title>
+</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+  function getData(){
+    var data = JSON.stringify({request: 'getFeatures', data:{"name": "Ousmane"}});
+      // convert object to json
+      $.ajax({
+        type: "GET",
+        url: "/getData",
+        dataType: "json",
+        data: data,
+        success:function(resData){
+          //alert(resData.status);
+          console.log("Received data From GET:", resData);
+				},
+        error:  function(errMsg) {
+					alert(errMsg);
+				}
+      });  
+  }  
+  function postData(){
+      // convert object to json
+      var data = JSON.stringify({request: 'addFeature', data:{"name": "Ousmane", "corners": [255, 246, 300]}});
+      $.ajax({
+        type: "POST",
+        url: "/postData",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success:function(resData){
+					alert(resData.status);
+				},
+        error:  function(errMsg) {
+					alert(errMsg);
+				}
+      });  
+  }
+  </script>
+<body>
+  <div>
+    <p><a href="#" onclick='getData(); return false'>getData</a></p>
+  </div>
+  <div>
+    <p><a href="#" onclick='postData(); return false'>postData</a></p>
+  </div>
+  <script>
+  window.onload = function() {
+  }
+  </script>
+</body>
+</html>
